@@ -8,6 +8,56 @@
 // };
 
 import axios from "axios";
+//import { create } from 'ipfs-http-client';
+//import dotenv from 'dotenv';
+//dotenv.config();
+
+
+
+
+const pinataApiKey = 'YOUR_PINATA_API_KEY';
+const pinataSecretApiKey= 'YOUR_PINATA_SECRET_API_KEY';
+
+/*
+// Setup IPFS client
+const ipfsClient = create({ url:
+  'https://ipfs.infura.io:5001/api/v0',
+  headers: {
+    authorization: auth,
+  },
+ }); 
+
+
+export const uploadToIPFS = async (metadata) => {
+  try {
+    console.log(metadata);
+    const added = await ipfsClient.add(JSON.stringify(metadata));
+    console.log(added);
+    return `https://ipfs.infura.io/ipfs/${added.path}`;
+  } catch (error) {
+    console.error("Error uploading to IPFS", error);
+    return null;
+  }
+};*/
+
+export const pinJSONToIPFS = async (metaData) => {
+  try {
+    const jsonData = JSON.stringify(metaData);
+    console.log(jsonData);
+    const response = await axios.post('https://api.pinata.cloud/pinning/pinJSONToIPFS', jsonData, {
+      headers: {
+        'Content-Type': 'application/json',
+        'pinata_api_key': pinataApiKey,
+        'pinata_secret_api_key': pinataSecretApiKey,
+      },
+    });
+
+    console.log('JSON pinned successfully:', response.data);
+    return `https://ipfs.io/ipfs/${response.data.IpfsHash}`; // Contains the IPFS hash
+  } catch (error) {
+    console.error('Error pinning JSON to Pinata:', error.message);
+  }
+}
 
 export const getIpfshash = async (data) => {
   let config = {

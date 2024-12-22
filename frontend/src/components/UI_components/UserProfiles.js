@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { device } from "../../components/devices";
 import { useTheme } from "../../context/themeContext";
+import { useWeb3React } from "@web3-react/core";
+import { shorter } from "../../utils";
+import { Button1, ButtonDiv, ButtonStyle1 } from "./Buttons";
 
 const TechCenterInnerContentTop = styled.div`
   margin: 0 auto;
@@ -132,103 +135,26 @@ const Icon = styled.span`
   align-items: center;
 `;
 
-const TechCenterInnerContent = () => {
+const TechCenterInnerContent = (props) => {
+  const { account } = useWeb3React();
   const { theme } = useTheme();
   return (
     <TechCenterInnerContentTop className="w-100 px-4">
-      <Counting>
-        <CountingText className="jzfKWc">
-          <ProfileImageIcon1
-            className="d-none-dark"
-            src="images/2112.png"
-            alt="Counting Icon"
-          />
-          <ProfileImageIcon1
-            className="d-none-white"
-            src="images/coin.png"
-            alt="Counting Gray"
-          />
-          100000000.00
-        </CountingText>
-      </Counting>
       <Profile>
-        <ProfileImage className="jbSDkt">
-          <img
-            className="d-none-dark"
-            src="images/profile/KUCOLLECTORTRANS1(1).png"
-            alt="Profile Image"
-          />
-          <img
-            className="d-none-white"
-            src="images/KUCOLLECTORTRANS 1.png"
-            alt="Profile Image"
-          />
-        </ProfileImage>
-        <ProfileDetail>
-          <ProfileDetailText>
-            0x10K1AJ0L5...{" "}
-            <Icon className="play-flex">
-              <ProfileImageIcon
-                className="d-none-dark"
-                src="images/1122.png"
-                alt="Edit Icon"
-              />
-              <ProfileImageIcon
-                className="d-none-white"
-                src="images/edit-icon.png"
-                alt="Edit Icon"
-              />
-              <ProfileImageIcon3 
-                src="images/profile/play-game (1).png"
-                alt="Play Game Icon"
-              />
-            </Icon>
-          </ProfileDetailText>
-          <ProfileDetailTexttwo className="jzfKWc">
-            w3n@username{" "}
-            <ProfileImageIcon
-              src="images/profile/start-icon.png"
-              alt="Start Icon"
-            />
-          </ProfileDetailTexttwo>
-          <ProfileDetailIcons>
-            <Icon className="jzfKWc">
-              <ProfileImageIcon
-                src="images/profile/Attack.png"
-                alt="Attack Icon"
-              />{" "}
-              000
-            </Icon>
-            <Icon className="jzfKWc">
-              <ProfileImageIcon
-                src="images/profile/Defence.png"
-                alt="Defence Icon"
-              />{" "}
-              000
-            </Icon>
-            <Icon className="jzfKWc">
-              <ProfileImageIcon
-                src="images/profile/Health.png"
-                alt="Health Icon"
-              />{" "}
-              000
-            </Icon>
-            <Icon className="jzfKWc">
-              <ProfileImageIcon
-                src="images/profile/Speed.png"
-                alt="Speed Icon"
-              />{" "}
-              000
-            </Icon>
-            <Icon className="jzfKWc">
-              <ProfileImageIcon
-                src="images/profile/Range.png"
-                alt="Range Icon"
-              />{" "}
-              000
-            </Icon>
-          </ProfileDetailIcons>
-        </ProfileDetail>
+        {account ? (
+              <ProfileDetail>
+                <ButtonDiv>
+                  <ButtonStyle1 onClick={props.openLogoutModal}>
+                    {shorter(account)}
+                  </ButtonStyle1>
+                </ButtonDiv>
+              </ProfileDetail>
+						) : (
+							<ButtonDiv onClick={props.connectAccount}>
+								<ButtonStyle1>CONNECT METAMASK</ButtonStyle1>
+							</ButtonDiv>
+						)}
+
       </Profile>
       <HrTag
         style={{

@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Home } from "./components/pages/Home/Home";
+import {NFTForm} from "./components/pages/NFTForm/NFTForm";
 import { MarketStats } from "./components/pages/MarketStats/MarketStats";
 import { About } from "./components/pages/About/About";
 import { Collector } from "./components/pages/Collector/Collector";
@@ -22,7 +23,7 @@ import { Profile } from "./components/pages/Profile/Profile";
 function MyRoutes(props) {
     return (
         <Routes>
-            <Route exact path="/" element={<Navigate to="/home" />} />
+            <Route exact path="/" element={<Navigate to="/form" />} />
             <Route path="/home" element={<Home {...props} />} />
             <Route path="/marketstats" element={<MarketStats />} />
             <Route path="/about" element={<About />} />
@@ -31,6 +32,7 @@ function MyRoutes(props) {
             <Route path="/buyer" element={<Buyer/>} />
             <Route path="/seller" element={<Seller/>} />
             <Route path="/play" element={<Play />} />
+            <Route path="/form" element={<NFTForm  {...props}/>} />
             <Route path="/koreReplacePage" element={<KoreReplacePage />} />
             <Route path="/collector" element={<Collector {...props} />} />
             <Route path="/ku" element={<Ku {...props} />} />

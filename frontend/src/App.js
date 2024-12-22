@@ -27,6 +27,8 @@ import Identicon from "@polkadot/react-identicon";
 import TopNav from "./components/UI_components/TopNav";
 import { Navbar } from "./components/UI_components/Navbar";
 import { MarketPlace } from "./components/pages/MarketPlace/MarketPlace";
+import { NFTGallery } from "./components/pages/NFTGallery/NFTGallery";
+//import { NFTForm } from "./components/pages/NFTForm/NFTForm";
 import styled from "styled-components";
 import MyRoutes from "./routes";
 import { shorter } from "./utils";
@@ -140,7 +142,7 @@ const WModalFooter = styled(ModalFooter)`
 function App() {
   const [connectModalOpen, setConnectModalOpen] = useState(null);
   const [errorModalOpen, setErrorModalOpen] = useState(null);
-  const [networkError, setNetworkError] = useState(null);
+  //const [networkError, setNetworkError] = useState(null);
   const [errorType, setErrorType] = useState("unknown");
   const [logoutModalOpen, setLogoutModalOpen] = useState(false);
 
@@ -180,7 +182,7 @@ function App() {
     if (_tried) {
       const errorMsg = getErrorMessage(_triedError);
       const errType = getErrorType(_triedError);
-      setNetworkError(errorMsg);
+      //setNetworkError(errorMsg);
       setErrorType(errType);
       setErrorModalOpen(true);
     }
@@ -208,9 +210,9 @@ function App() {
   if (activateError && errorModalOpen === null) {
     const errorMsg = getErrorMessage(activateError);
     const errType = getErrorType(activateError);
-    setNetworkError(errorMsg);
+    //setNetworkError(errorMsg);
     setErrorType(errType);
-    setErrorModalOpen(true);
+    setErrorModalOpen(false);
   }
   const handleLogout = async () => {
     deactivate();
@@ -355,12 +357,6 @@ function App() {
         <>
           <TopNav />
           <MainConetent>
-            <Navbar
-              connectAccount={connectAccount}
-              connectKusama={connectKusama}
-              kuWallet={kuWallet}
-              openLogoutModal={openLogoutModal}
-            />
             <div className="r-l-border responsive">
               <MyRoutes
                 connectAccount={connectAccount}
@@ -374,11 +370,15 @@ function App() {
                 connectSporran={connectSporran}
                 kiltWallet={kiltWallet}
                 setIsKiltError={setIsKiltError}
+                setConnectModalOpen={setConnectModalOpen}
+                setLogoutModalOpen={setLogoutModalOpen}
+                openLogoutModal={openLogoutModal}
+                
               />
             </div>
             {device.mobile && (
               <div className="desk-markt">
-                <MarketPlace />
+                <NFTGallery />
               </div>
             )}
           </MainConetent>
@@ -390,13 +390,7 @@ function App() {
               <ModalWrap className="modal-wrap" style={{ paddingBottom: 24 }}>
                 <ModalBody>
                   <h3 className="success-title">Connect your wallet</h3>
-                  {errorType === "chain" && (
-                    <h5 className="success-subtitle">Wrong Network</h5>
-                  )}
                   <h5 className="success-subtitle">
-                    {errorType === "chain"
-                      ? "Please switch your network to Exosama"
-                      : networkError}
                   </h5>
                 </ModalBody>
                 <WModalFooter>
